@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UserPointTable } from 'src/database/userpoint.table';
-import { PointHistoryTable } from 'src/database/pointhistory.table';
+import { UserPointTable } from '../database/userpoint.table';
+import { PointHistoryTable } from '../database/pointhistory.table';
 import { PointHistory, TransactionType, UserPoint } from './point.model';
 
 
@@ -12,6 +12,9 @@ export class PointService {
   constructor(
     private readonly userPointTable: UserPointTable,
     private readonly pointHistoryTable: PointHistoryTable,
-  ) {}
-  
+  ) { }
+
+  async getPoint(userId: number): Promise<UserPoint> {
+    return this.userPointTable.selectById(userId);
+  }
 }
