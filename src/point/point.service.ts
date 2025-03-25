@@ -4,7 +4,6 @@ import { PointHistoryTable } from '../database/pointhistory.table';
 import { PointHistory, TransactionType, UserPoint } from './point.model';
 import { InsufficientPointException, InvalidAmountException, InvalidUserIdException, MaxPointExceededException } from './point.exception';
 
-
 @Injectable()
 export class PointService {
   // 최대 포인트 값 설정 (추후 변경 가능성으로인해 상수로 선언) - TODO :: config로 분리 ?
@@ -37,15 +36,15 @@ export class PointService {
   }
 
   /**
- * 사용자의 포인트를 충전합니다.
- * 충전 금액은 1 이상의 양수여야 하며, 최대 포인트 한도를 초과할 수 없습니다.
- * 
- * @param userId - 포인트를 충전할 사용자의 ID
- * @param amount - 충전할 포인트 양
- * @returns 갱신된 사용자 포인트 정보
- * @throws {InvalidAmountException} 충전 금액이 0 이하인 경우
- * @throws {MaxPointExceededException} 충전 후 포인트가 최대 한도를 초과하는 경우
- */
+   * 사용자의 포인트를 충전합니다.
+   * 충전 금액은 1 이상의 양수여야 하며, 최대 포인트 한도를 초과할 수 없습니다.
+   * 
+   * @param userId - 포인트를 충전할 사용자의 ID
+   * @param amount - 충전할 포인트 양
+   * @returns 갱신된 사용자 포인트 정보
+   * @throws {InvalidAmountException} 충전 금액이 0 이하인 경우
+   * @throws {MaxPointExceededException} 충전 후 포인트가 최대 한도를 초과하는 경우
+   */
   async chargePoint(userId: number, amount: number): Promise<UserPoint> {
     if (amount <= 0) {
       throw new InvalidAmountException(amount);
@@ -72,15 +71,15 @@ export class PointService {
   }
 
   /**
- * 사용자의 포인트를 사용합니다.
- * 사용 금액은 1 이상의 양수여야 하며, 현재 보유 포인트를 초과할 수 없습니다.
- * 
- * @param userId - 포인트를 사용할 사용자의 ID
- * @param amount - 사용할 포인트 양
- * @returns 갱신된 사용자 포인트 정보
- * @throws {InvalidAmountException} 사용 금액이 0 이하의 음수인 경우
- * @throws {InsufficientPointException} 현재 보유 포인트보다 많은 금액을 사용하려는 경우
- */
+   * 사용자의 포인트를 사용합니다.
+   * 사용 금액은 1 이상의 양수여야 하며, 현재 보유 포인트를 초과할 수 없습니다.
+   * 
+   * @param userId - 포인트를 사용할 사용자의 ID
+   * @param amount - 사용할 포인트 양
+   * @returns 갱신된 사용자 포인트 정보
+   * @throws {InvalidAmountException} 사용 금액이 0 이하의 음수인 경우
+   * @throws {InsufficientPointException} 현재 보유 포인트보다 많은 금액을 사용하려는 경우
+   */
   async usePoint(userId: number, amount: number): Promise<UserPoint> {
     if (amount <= 0) {
       throw new InvalidAmountException(amount);
